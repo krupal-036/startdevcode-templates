@@ -1,0 +1,9 @@
+{
+  "templates": {
+    "node": {
+      "path": "templates/node",
+      "description": "Node.js + Express API starter",
+      "defaultRef": "node-latest"
+    }
+  }
+}

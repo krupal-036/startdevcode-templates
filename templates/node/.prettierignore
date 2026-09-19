@@ -1,0 +1,52 @@
+# Dependencies
+node_modules
+
+# Build & dist folders
+dist
+build
+.next
+.nuxt
+.out
+.cache
+public
+
+# Environment
+.env
+.env.local
+.env.*.local
+.venv
+venv
+env
+
+# Coverage & logs
+coverage
+.nyc_output
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Lock files (format only with Prettier, don't auto-format)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.project
+.classpath
+
+# Config files
+tsconfig.json
+vite.config.ts
+vercel.json
+
+# Compiled
+*.min.js
+*.min.css

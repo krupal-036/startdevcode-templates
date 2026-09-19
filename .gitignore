@@ -1,0 +1,102 @@
+# ================================
+# Dependencies
+# ================================
+node_modules/
+**/node_modules/
+
+# ================================
+# Build / Distribution
+# ================================
+dist/
+**/dist/
+
+build/
+**/build/
+
+.next/
+**/.next/
+
+out/
+**/out/
+
+coverage/
+**/coverage/
+
+# NestJS
+.nest/
+
+# Temporary files
+tmp/
+**/tmp/
+
+temp/
+**/temp/
+
+.temp/
+**/.temp/
+
+.tmp/
+**/.tmp/
+
+# ================================
+# Logs
+# ================================
+logs/
+*.log
+
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# ================================
+# Environment Variables
+# ================================
+.env
+.env.*
+!.env.example
+
+# ================================
+# TypeScript
+# ================================
+*.tsbuildinfo
+
+# ================================
+# React / Vite
+# ================================
+.vite/
+**/.vite/
+
+# ================================
+# Testing
+# ================================
+.nyc_output/
+
+# ================================
+# OS Files
+# ================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ================================
+# IDE / Editors
+# ================================
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+.idea/
+*.swp
+*.swo
+
+# ================================
+# Misc
+# ================================
+.cache/
+**/.cache/
+
+.eslintcache
