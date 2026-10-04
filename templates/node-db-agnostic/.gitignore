@@ -29,4 +29,3 @@ dist-ssr
 .vite/*
 
 *.py
-payload.md

@@ -4,6 +4,12 @@
       "path": "templates/node",
       "description": "Node.js + Express API starter",
       "defaultRef": "node-latest"
+    },
+    "node-db-agnostic": {
+      "path": "templates/node-db-agnostic",
+      "label": "Node + Express (DB-Agnostic)",
+      "description": "Node.js + Express API starter with a runtime-switchable database layer. Currently supports MongoDB (Mongoose) and MySQL (TypeORM) through a shared repository interface — plug in another driver without touching services.",
+      "defaultRef": "node-db-agnostic-latest"
     }
   }
 }
