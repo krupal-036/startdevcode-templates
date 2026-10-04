@@ -1,102 +1,31 @@
-# ================================
-# Dependencies
-# ================================
-node_modules/
-**/node_modules/
+client
+server
 
-# ================================
-# Build / Distribution
-# ================================
-dist/
-**/dist/
-
-build/
-**/build/
-
-.next/
-**/.next/
-
-out/
-**/out/
-
-coverage/
-**/coverage/
-
-# NestJS
-.nest/
-
-# Temporary files
-tmp/
-**/tmp/
-
-temp/
-**/temp/
-
-.temp/
-**/.temp/
-
-.tmp/
-**/.tmp/
-
-# ================================
 # Logs
-# ================================
-logs/
+logs
 *.log
-
 npm-debug.log*
-pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 lerna-debug.log*
 
-# ================================
-# Environment Variables
-# ================================
+node_modules
+
+dist
+dist-ssr
+*.local
 .env
-.env.*
-!.env.example
-
-# ================================
-# TypeScript
-# ================================
-*.tsbuildinfo
-
-# ================================
-# React / Vite
-# ================================
-.vite/
-**/.vite/
-
-# ================================
-# Testing
-# ================================
-.nyc_output/
-
-# ================================
-# OS Files
-# ================================
-.DS_Store
-Thumbs.db
-desktop.ini
-
-# ================================
-# IDE / Editors
-# ================================
+# Editor directories and files
 .vscode/*
-!.vscode/settings.json
 !.vscode/extensions.json
-!.vscode/launch.json
-!.vscode/tasks.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.vite/*
 
-.idea/
-*.swp
-*.swo
-
-# ================================
-# Misc
-# ================================
-.cache/
-**/.cache/
-
-.eslintcache
+*.py

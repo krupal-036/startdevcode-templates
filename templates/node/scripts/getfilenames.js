@@ -1,9 +1,9 @@
 // getfilenames.js
+import 'dotenv/config';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import process from 'node:process';
-
 const INCLUDE_ROOT_DIR = false;
 
 const EXCLUDE_DIRS = new Set([
@@ -12,7 +12,7 @@ const EXCLUDE_DIRS = new Set([
 ]);
 
 const EXCLUDE_EXTS = new Set([
-    '.json', '.lock', '.ico', '.png', '.jpg', '.jpeg', '.woff', '.woff2', '.md'
+    '.json', '.lock', '.ico', '.png', '.jpg', '.jpeg', '.woff', '.woff2',
 ]);
 
 const COMMENT_MAP = {
@@ -38,8 +38,8 @@ const COMMENT_MAP = {
     '.go': '//',
     '.rs': '//',
     '.php': '//',
-    '.css': '//',
-    '.scss': '//',
+    '.css': '/*',
+    '.scss': '/*',
     '.less': '//',
     '.env.example': '#',
     '.env_EXAMPLE': '#',
@@ -48,16 +48,22 @@ const COMMENT_MAP = {
     '.html': '<!--',
 };
 
+if(process.env.NODE_ENV === 'production') {
+    process.exit(0);
+}
+
 function getCommentFormat(fileExt, pathStr) {
     const commentSymbol = COMMENT_MAP[fileExt.toLowerCase()];
     if (!commentSymbol) return null;
 
-    // HTML / Markdown comment style
     if (commentSymbol === '<!--') {
         return `<!-- ${pathStr} -->`;
     }
 
-    // Standard single-line comment style
+    if (commentSymbol === '/*') {
+        return `/* ${pathStr} */`;
+    }
+
     return `${commentSymbol} ${pathStr}`;
 }
 
@@ -96,12 +102,10 @@ async function processFile(filePath, rootDirName, scriptName) {
             break;
         }
 
-        // 2. Legacy "Path:" detection (e.g. "// Path: src/...")
         const isLegacy =
             lineClean.toLowerCase().includes('path:') &&
             (lineClean.startsWith('//') || lineClean.startsWith('#') || lineClean.startsWith('<!--'));
 
-        // 3. Existing path comment with an outdated path/filename
         let isExistingPathComment = false;
         const commentSymbol = COMMENT_MAP[ext.toLowerCase()];
 
@@ -117,6 +121,18 @@ async function processFile(filePath, rootDirName, scriptName) {
             }
         }
 
+        if (commentSymbol && commentSymbol !== '/*' && lineClean.startsWith(commentSymbol)) {
+            const candidate = lineClean.slice(commentSymbol.length).trim();
+            if (candidate.endsWith(path.basename(filePath)) || candidate.includes('/')) {
+                isExistingPathComment = true;
+            }
+        } else if (lineClean.startsWith('/*') && lineClean.endsWith('*/')) {
+            const candidate = lineClean.slice(4, -3).trim();
+            if (candidate.endsWith(path.basename(filePath)) || candidate.includes('/')) {
+                isExistingPathComment = true;
+            }
+        }
+
         if (isLegacy || isExistingPathComment) {
             matchedIndex = i;
             break;
@@ -125,13 +141,11 @@ async function processFile(filePath, rootDirName, scriptName) {
 
     if (alreadyCorrect) return;
 
-    // Update existing header or insert new one
     if (matchedIndex !== -1) {
         lines[matchedIndex] = expectedHeader;
         console.log(`## Updated header in: ${relPathClean}`);
     } else {
         let insertIdx = 0;
-        // If file begins with a shebang (e.g., #!/usr/bin/env node), place header after it
         if (lines.length > 0 && lines[0].startsWith('#!')) {
             insertIdx = 1;
         }
